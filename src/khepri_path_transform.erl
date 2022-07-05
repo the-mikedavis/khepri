@@ -47,8 +47,13 @@ map_form({'case', _Location, _Expr, Clauses} = Case0, Fun) ->
 map_form({'if', _Location, Clauses} = If0, Fun) ->
     If = setelement(3, If0, map_form(Clauses, Fun)),
     Fun(If);
-map_form({match, _Pattern, Expression} = Match0, Fun) ->
-    Match = setelement(3, Match0, map_form(Expression, Fun)),
+map_form({'try', _Location, Body, _Patterns, Catch, After} = Try0, Fun) ->
+    Try1 = setelement(3, Try0, map_form(Body, Fun)),
+    Try2 = setelement(5, Try1, map_form(Catch, Fun)),
+    Try3 = setelement(6, Try2, map_form(After, Fun)),
+    Fun(Try3);
+map_form({match, _Location, _Pattern, Expression} = Match0, Fun) ->
+    Match = setelement(4, Match0, map_form(Expression, Fun)),
     Fun(Match);
 map_form(Form, Fun) ->
     Fun(Form).

@@ -25,10 +25,9 @@ simple_replacement_test() ->
     Listing = ""
     "hello_world() ->"
     "    khepri_path:from_string(\"/:stock/:wood/oak\").",
-
-    Path = [function(hello_world, 0), clause(0)],
-    Term = evaluate_form(Listing, Path),
-    ?assertEqual({ok, [stock, wood, <<"oak">>]}, Term),
+    Forms = expand_forms(Listing),
+    ExpectedForm = erl_parse:abstract([stock, wood, <<"oak">>]),
+    ?assert(contains_form(Forms, ExpectedForm)),
     ok.
 
 replacement_within_binding_test() ->
@@ -36,9 +35,10 @@ replacement_within_binding_test() ->
     "hello_world() ->"
     "    Path = khepri_path:from_string(\"/:stock/:wood/oak\"),"
     "    Path.",
-    Path = [function(hello_world, 0), clause(0), 'match'],
-    Term = evaluate_form(Listing, Path),
-    ?assertEqual({ok, [stock, wood, <<"oak">>]}, Term),
+    Forms = expand_forms(Listing),
+    io:format("Forms: ~p~n", [Forms]),
+    ExpectedForm = erl_parse:abstract([stock, wood, <<"oak">>]),
+    ?assert(contains_form(Forms, ExpectedForm)),
     ok.
 
 replacement_within_case_expression_test() ->
@@ -48,14 +48,11 @@ replacement_within_case_expression_test() ->
     "        true -> khepri_path:from_string(\"/:stock/:wood/oak\");"
     "        false -> khepri_path:from_string(\"/:emails/alice\")"
     "    end.",
-
-    TrueClausePath = [function(hello_world, 1), clause(0), 'case', clause(0)],
-    TrueClauseTerm = evaluate_form(Listing, TrueClausePath),
-    ?assertEqual({ok, [stock, wood, <<"oak">>]}, TrueClauseTerm),
-
-    FalseClausePath = [function(hello_world, 1), clause(0), 'case', clause(1)],
-    FalseClauseTerm = evaluate_form(Listing, FalseClausePath),
-    ?assertEqual({ok, [emails, <<"alice">>]}, FalseClauseTerm),
+    Forms = expand_forms(Listing),
+    WoodForm = erl_parse:abstract([stock, wood, <<"oak">>]),
+    ?assert(contains_form(Forms, WoodForm)),
+    EmailForm = erl_parse:abstract([emails, <<"alice">>]),
+    ?assert(contains_form(Forms, EmailForm)),
     ok.
 
 replacement_within_if_expression_test() ->
@@ -65,63 +62,70 @@ replacement_within_if_expression_test() ->
     "        N =:= node() ->"
     "            khepri_path:from_string(\"/:stock/:wood/oak\");"
     "        true ->"
-    "            [stock, wood, <<\"oak\">>]"
+    "            [stock, wood, <<\"birch\">>]"
     "    end.",
-    Path = [function(hello_world, 1), clause(0), 'if', clause(0)],
-    TrueClauseTerm = evaluate_form(Listing, Path),
-    ?assertEqual({ok, [stock, wood, <<"oak">>]}, TrueClauseTerm),
+    Forms = expand_forms(Listing),
+    ExpectedForm = erl_parse:abstract([stock, wood, <<"oak">>]),
+    ?assert(contains_form(Forms, ExpectedForm)),
     ok.
 
-%% Helper functions
+replacement_within_try_expression_test() ->
+    Listing = ""
+    "hello_world() ->"
+    "    try"
+    "        khepri_path:from_string(\"/:stock/:wood/oak\")"
+    "    catch"
+    "        _:_ ->"
+    "            khepri_path:from_string(\"/:stock/:wood/birch\")"
+    "    after"
+    "        khepri_path:from_string(\"/:stock/:wood/willow\")"
+    "    end.",
+    Forms = expand_forms(Listing),
+    OakForm = erl_parse:abstract([stock, wood, <<"oak">>]),
+    ?assert(contains_form(Forms, OakForm)),
+    BirchForm = erl_parse:abstract([stock, wood, <<"birch">>]),
+    ?assert(contains_form(Forms, BirchForm)),
+    WillowForm = erl_parse:abstract([stock, wood, <<"willow">>]),
+    ?assert(contains_form(Forms, WillowForm)),
+    ok.
 
-evaluate_form(Listing, Path) ->
-    Forms = forms(Listing),
-    TransformedForms = khepri_path_transform:parse_transform(Forms, []),
-    case get_form_in(Path, lists:flatten([TransformedForms])) of
-        {ok, Form} ->
-            {ok, erl_parse:normalise(Form)};
-        error ->
-            error
-    end.
+%% Abstract form helper functions
 
-get_form_in(Path, Forms) ->
-    get_form_in(Path, Forms, 0).
+-spec expand_forms(Listing) -> [Form] when
+    Listing :: string(),
+    Form :: erl_parse:abstract_form().
+%% @doc Expands a valid Erlang listing into abstract forms.
+%% {@link khepri_path_transform:parse_transform/2} is applied to the forms.
 
-get_form_in([], [Form], _Count) ->
-    io:format("Selected form: ~p~n", [Form]),
-    {ok, Form};
-get_form_in([], Form, _Count) ->
-    io:format("Selected form: ~p~n", [Form]),
-    {ok, Form};
-get_form_in(_Path, [], _Count) ->
-    error;
-get_form_in([Selector | Next] = Path, [Form | Forms], Count) ->
-    io:format("{Selector, Form}: ~p~n", [{Selector, Form}]),
-    case {Selector, Form} of
-        {{function, Name, Arity}, {function, _, Name, Arity, Clauses}} ->
-            get_form_in(Next, Clauses, 0);
-        {{clause, Count}, {clause, _, _, _, Body}} ->
-            get_form_in(Next, Body, 0);
-        {'case', {'case', _, _, Clauses}} ->
-            get_form_in(Next, Clauses, 0);
-        {'if', {'if', _, Clauses}} ->
-            get_form_in(Next, Clauses, 0);
-        {match, {match, _, Expression}} ->
-            get_form_in(Next, Expression, 0);
-        {_Selector, _Form} ->
-            get_form_in(Path, Forms, Count + 1)
-    end.
-
-function(Name, Arity) ->
-    {function, Name, Arity}.
-
-clause(ClauseNumber) ->
-    {clause, ClauseNumber}.
-
-%% nth(Index) ->
-%%     {nth, Index}.
-
-forms(Listing) ->
+expand_forms(Listing) ->
     {ok, Tokens, _} = erl_scan:string(Listing),
     {ok, Forms} = erl_parse:parse_form(Tokens),
-    Forms.
+    khepri_path_transform:parse_transform(Forms, []).
+
+-spec contains_form(Haystack, Needle) -> boolean() when
+    Haystack :: [Form],
+    Needle :: Form,
+    Form :: erl_parse:abstract_form().
+%% @doc Checks if the `Needle' form is an element of any part of the
+%% `Haystack' forms tree.
+%%
+%% This implementation checks against all elements of all forms including
+%% {@link erl_anno:location()} elements for the sake of simplicity.
+%%
+%% @returns `true' if `Haystack' contains `Needle', `false' otherwise.
+contains_form(Haystack, Needle) ->
+    contains_form1(strip_annos(Haystack), strip_annos(Needle)).
+
+strip_annos(Forms) ->
+    erl_parse:map_anno(fun(_Anno) -> 0 end, Forms).
+
+contains_form1(Needle, Needle) ->
+    true;
+contains_form1(Haystack, Needle) when is_tuple(Haystack) ->
+    contains_form1(tuple_to_list(Haystack), Needle);
+contains_form1(Haystack, Needle) when is_list(Haystack) ->
+    lists:any(
+        fun(SubHaystack) -> contains_form1(SubHaystack, Needle) end,
+        Haystack);
+contains_form1(_Haystack, _Needle) ->
+    false.

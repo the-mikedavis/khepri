@@ -16,40 +16,47 @@
 %%
 %% or with the `erlc' option `` +'{parse_transform, khepri_path_transform}' ''.
 %%
-%% Calls to {@link khepri_path:compile/1} and {@link khepri_path:from_string/1}
-%% with a string {@link khepri_path:unix_pattern()} are expanded at
-%% compile-time.
+%% Calls to {@link khepri_path:from_string/1} with a string with a string
+%% {@link khepri_path:unix_pattern()} are replaced at compile-time with
+%% equivalent {@link khepri_path:native_pattern()}s.
 
 -module(khepri_path_transform).
--export([parse_transform/2]).
 
--spec parse_transform(Forms, Options) -> Forms when
-    Forms :: erl_parse:abstract_form(),
-    Options :: term().
+-export([parse_transform/2, map_form/2, rewrite_path_call/1]).
+
+-spec parse_transform([Form], Options) -> [Form]
+    when Form :: erl_parse:abstract_form(),
+         Options :: term().
 parse_transform(Forms, _Options) ->
-    walk_forms(Forms, fun rewrite_path_call/1).
+    map_form(Forms, fun rewrite_path_call/1).
 
-walk_forms(Forms, Fun) when is_list(Forms) ->
-    [walk_forms(Form, Fun) || Form <- Forms];
-walk_forms({function, _Location, _Name, _Arity, Clauses} = Function0, Fun) ->
-    Function = setelement(5, Function0, walk_forms(Clauses, Fun)),
+-spec map_form(Form | [Form], Fun) -> Form | [Form]
+    when Form :: erl_parse:abstract_form(),
+         Fun :: fun((erl_parse:abstract_form()) -> erl_parse:abstract_form()).
+map_form(Forms, Fun) when is_list(Forms) ->
+    [map_form(Form, Fun) || Form <- Forms];
+map_form({function, _Location, _Name, _Arity, Clauses} = Function0, Fun) ->
+    Function = setelement(5, Function0, map_form(Clauses, Fun)),
     Fun(Function);
-walk_forms({clause, _Location, _Pattern, _Guard, Body} = Clause0, Fun) ->
-    Clause = setelement(5, Clause0, walk_forms(Body, Fun)),
+map_form({clause, _Location, _Pattern, _Guard, Body} = Clause0, Fun) ->
+    Clause = setelement(5, Clause0, map_form(Body, Fun)),
     Fun(Clause);
-walk_forms({'case', _Location, Clauses} = Case0, Fun) ->
-    Case = setelement(3, Case0, walk_forms(Clauses, Fun)),
+map_form({'case', _Location, _Expr, Clauses} = Case0, Fun) ->
+    Case = setelement(4, Case0, map_form(Clauses, Fun)),
     Fun(Case);
-walk_forms(Form, Fun) ->
+map_form({'if', _Location, Clauses} = If0, Fun) ->
+    If = setelement(3, If0, map_form(Clauses, Fun)),
+    Fun(If);
+map_form({match, _Pattern, Expression} = Match0, Fun) ->
+    Match = setelement(3, Match0, map_form(Expression, Fun)),
+    Fun(Match);
+map_form(Form, Fun) ->
     Fun(Form).
 
-rewrite_path_call(
-  {call,
-   _Location,
-   {remote, _, {atom, _, khepri_path},
-   {atom, _, Function}},
-   [{string, Location, Path}]}) when
-       Function =:= from_string orelse Function =:= compile ->
+rewrite_path_call({call,
+                   _Location,
+                   {remote, _, {atom, _, khepri_path}, {atom, _, from_string}},
+                   [{string, Location, Path}]}) ->
     NativePath = khepri_path:from_string(Path),
     erl_parse:abstract(NativePath, Location);
 rewrite_path_call(Form) ->

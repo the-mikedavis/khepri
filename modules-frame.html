@@ -2,72 +2,8 @@
 <html>
 <head>
 <title>The khepri application</title>
-<link rel="stylesheet" type="text/css" href="github-markdown.css" title="EDoc">
-<link href="prism.css" rel="stylesheet" />
-<style>
-    body {
-      box-sizing: border-box;
-      min-width: 200px;
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 45px;
-    }
-    @media (max-width: 767px) {
-      body {
-        padding: 15px;
-      }
-    }
-    /* Don't apply the table style to the top-level navigation bar. */
-    .navbar table {
-      display: table;
-      width: 100%;
-    }
-    .navbar table tr,
-    .navbar table th,
-    .navbar table td {
-      border: 0;
-    }
-    /* Keep the same font side inside code blocks than everywhere else. */
-    .markdown-body pre code,
-    code[class*="language-"] {
-      font-size: 85%;
-    }
-    /* Force the color for link on code blocks used for @see tags.  */
-    .markdown-body a code,
-    .markdown-body a code span.token {
-      color: var(--color-accent-fg);
-    }
-    /* Copy the style of code blocks. */
-    .markdown-body .spec {
-      background: #f5f2f0;
-      padding: 1em;
-      margin: .5em 0;
-      overflow: auto;
-      border-radius: 6px;
-    }
-    /* Improve margins inside function spec blocks so that:
-        - empty paragraphs don't add useless margins
-        - the final top and bottom margins are equal */
-    .markdown-body .spec p,
-    .markdown-body .spec ul {
-      margin-top: 16px;
-      margin-bottom: 0;
-    }
-    .markdown-body .spec p:first-child,
-    .markdown-body .spec p:empty {
-      margin-top: 0;
-    }
-    /* Put the function prototype in bold characters. */
-    .markdown-body .spec > p > code:first-child {
-      font-weight: bold;
-    }
-    /* Add some margin below the module short description between the table
-       of contents in the Description section. This text isn't in a
-       <p></p>. */
-    .index + p {
-      margin-top: 16px;
-    }
-    </style>
+<link rel="stylesheet" type="text/css" href="edoc-extensions.css" title="EDoc">
+<link rel="icon" href="khepri-favicon.svg" type="image/svg+xml">
 </head>
 <body class="markdown-body language-erlang">
 <script src="prism.js"></script>
@@ -85,13 +21,8 @@
 <li><a href="overview-summary.html#Tree_node_lifetime"target="overviewFrame">Tree node lifetime</a></li>
 </ul>
 </li>
-<li><a href="overview-summary.html#Khepri_API"target="overviewFrame">Khepri API</a>
-<ul>
-<li><a href="overview-summary.html#High-level_API"target="overviewFrame">High-level API</a></li>
-<li><a href="overview-summary.html#Low-level_API"target="overviewFrame">Low-level API</a></li>
 <li><a href="overview-summary.html#Stores"target="overviewFrame">Stores</a></li>
-</ul>
-</li>
+<li><a href="overview-summary.html#Khepri_API"target="overviewFrame">Khepri API</a></li>
 <li><a href="overview-summary.html#Transactions"target="overviewFrame">Transactions</a>
 <ul>
 <li><a href="overview-summary.html#Restrictions"target="overviewFrame">Restrictions</a></li>
@@ -105,18 +36,20 @@
 <li><a href="overview-summary.html#Triggering_a_function_after_some_event"target="overviewFrame">Triggering a function after some event</a></li>
 <li><a href="overview-summary.html#Storing_an_anonymous_function"target="overviewFrame">Storing an anonymous function</a></li>
 <li><a href="overview-summary.html#Configuring_a_trigger"target="overviewFrame">Configuring a trigger</a></li>
-<li><a href="overview-summary.html#Execution_guaranties"target="overviewFrame">Execution guaranties</a></li>
+<li><a href="overview-summary.html#Execution_guarantees"target="overviewFrame">Execution guarantees</a></li>
+<li><a href="overview-summary.html#Differences_with_triggers_in_RDBMS"target="overviewFrame">Differences with triggers in RDBMS</a></li>
 </ul>
 </ul>
 <h2 class="indextitle">Modules</h2>
 <table width="100%" border="0" summary="list of modules">
 <tr><td><a href="khepri.html" target="overviewFrame" class="module">khepri</a></td></tr>
+<tr><td><a href="khepri_cluster.html" target="overviewFrame" class="module">khepri_cluster</a></td></tr>
 <tr><td><a href="khepri_condition.html" target="overviewFrame" class="module">khepri_condition</a></td></tr>
+<tr><td><a href="khepri_evf.html" target="overviewFrame" class="module">khepri_evf</a></td></tr>
 <tr><td><a href="khepri_fun.html" target="overviewFrame" class="module">khepri_fun</a></td></tr>
 <tr><td><a href="khepri_machine.html" target="overviewFrame" class="module">khepri_machine</a></td></tr>
 <tr><td><a href="khepri_path.html" target="overviewFrame" class="module">khepri_path</a></td></tr>
-<tr><td><a href="khepri_sproc.html" target="overviewFrame" class="module">khepri_sproc</a></td></tr>
-<tr><td><a href="khepri_tx.html" target="overviewFrame" class="module">khepri_tx</a></td></tr>
-<tr><td><a href="khepri_utils.html" target="overviewFrame" class="module">khepri_utils</a></td></tr></table>
+<tr><td><a href="khepri_payload.html" target="overviewFrame" class="module">khepri_payload</a></td></tr>
+<tr><td><a href="khepri_tx.html" target="overviewFrame" class="module">khepri_tx</a></td></tr></table>
 </body>
 </html>

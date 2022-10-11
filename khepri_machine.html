@@ -1,195 +1,1049 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Module khepri_machine</title>
-<link rel="stylesheet" type="text/css" href="edoc-extensions.css" title="EDoc">
-<link rel="icon" href="khepri-favicon.svg" type="image/svg+xml">
-</head>
-<body class="markdown-body language-erlang"><script src="prism.js"></script>
-<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
-<hr>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.28.5">
+    <meta name="project" content="khepri v0.4.3">
 
-<h1>Module khepri_machine</h1>
-<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>  
-Khepri private low-level API.
+    <title>khepri_machine — khepri v0.4.3</title>
+    <link rel="stylesheet" href="dist/html-erlang-C3352F33.css" />
 
-<p><b>Behaviours:</b> <a href="ra_machine.html"><code>ra_machine</code></a>.</p>
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-X7YVL3G2.js"></script>
+    <script src="dist/sidebar_items-FD7723E7.js"></script>
 
-<h2><a name="description">Description</a></h2><p>  
-Khepri private low-level API.</p>
- 
-  <p>This module exposes the private "low-level" API to the Khepri database and
-  state machine. Main functions correspond to Ra commands implemented by the
-  state machine. All functions in <a docgen-rel="seeerl" docgen-href="khepri" href="khepri.html"><code>khepri</code></a> are built on top of this  
-module.</p>
- 
-  This module is private. The documentation is still visible because it may
-  help understand some implementation details. However, this module should
-  never be called directly outside of Khepri.
-<h2><a name="types">Data Types</a></h2>
+      <script src="docs_config.js"></script>
 
-<h3 class="typedecl"><a name="type-async_ret">async_ret()</a></h3>
-<p><code>async_ret() = ok</code></p>
+    <script async src="dist/html-PLW5RNNI.js"></script>
 
 
-<h3 class="typedecl"><a name="type-common_ret">common_ret()</a></h3>
-<p><code>common_ret() = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-ok">khepri:ok</a>(<a href="/home/runner/work/khepri/khepri/doc/khepri_adv.html#type-node_props_map">khepri_adv:node_props_map()</a>) | <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-error">khepri:error()</a></code></p>
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
+    </button>
+    <label class="search-label">
+      <p class="sr-only">Search</p>
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+
+      <a href="overview.html">
+        <img src="assets/logo.svg" alt="khepri" class="sidebar-projectImage">
+      </a>
+
+    <div class="sidebar-projectDetails">
+      <a href="overview.html" class="sidebar-projectName" translate="no">
+khepri
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v0.4.3
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
 
 
-<h3 class="typedecl"><a name="type-keep_while_conds_map">keep_while_conds_map()</a></h3>
-<p><code>keep_while_conds_map() = #{<a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-native_path">khepri_path:native_path()</a> =&gt; <a href="/home/runner/work/khepri/khepri/doc/khepri_condition.html#type-native_keep_while">khepri_condition:native_keep_while()</a>}</code></p>
-<p>  Per-node <code>keep_while</code> conditions.</p>
+    </ul>
+  </div>
 
-<h3 class="typedecl"><a name="type-keep_while_conds_revidx">keep_while_conds_revidx()</a></h3>
-<p><code>keep_while_conds_revidx() = #{<a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-native_path">khepri_path:native_path()</a> =&gt; #{<a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-native_path">khepri_path:native_path()</a> =&gt; ok}}</code></p>
-<p>  Internal reverse index of the keep_while conditions. If node A depends on a
-  condition on node B, then this reverse index will have a "node B =&gt; node A"
-  entry.</p>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
 
-<h3 class="typedecl"><a name="type-machine_config">machine_config()</a></h3>
-<p><code>machine_config() = #config{store_id = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-store_id">khepri:store_id()</a>, member = <a href="/home/runner/work/khepri/ra/doc/ra.html#type-server_id">ra:server_id()</a>, snapshot_interval = non_neg_integer()}</code></p>
-<p>  Configuration record, holding read-only or rarely changing fields.</p>
+<section class="content">
+  <output role="status" id="toast"></output>
+  <div class="content-outer">
+    <div id="content" class="content-inner">
 
-<h3 class="typedecl"><a name="type-props">props()</a></h3>
-<p><code>props() = #{payload_version := <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-payload_version">khepri:payload_version()</a>, child_list_version := <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-child_list_version">khepri:child_list_version()</a>}</code></p>
-<p>  Properties attached to each node in the tree structure.</p>
-
-<h3 class="typedecl"><a name="type-state">state()</a></h3>
-<p><code>state() = #khepri_machine{config = <a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-machine_config">khepri_machine:machine_config()</a>, root = <a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-tree_node">khepri_machine:tree_node()</a>, keep_while_conds = <a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-keep_while_conds_map">khepri_machine:keep_while_conds_map()</a>, keep_while_conds_revidx = <a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-keep_while_conds_revidx">khepri_machine:keep_while_conds_revidx()</a>, triggers = #{<a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-trigger_id">khepri:trigger_id()</a> =&gt; #{sproc := <a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-native_path">khepri_path:native_path()</a>, event_filter := <a href="/home/runner/work/khepri/khepri/doc/khepri_evf.html#type-event_filter">khepri_evf:event_filter()</a>}}, emitted_triggers = [<a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-triggered">khepri_machine:triggered()</a>], metrics = #{applied_command_count =&gt; non_neg_integer()}}</code></p>
-<p>  State of this Ra state machine.</p>
-
-<h3 class="typedecl"><a name="type-tree_node">tree_node()</a></h3>
-<p><code>tree_node() = #node{props = <a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-props">khepri_machine:props()</a>, payload = <a href="/home/runner/work/khepri/khepri/doc/khepri_payload.html#type-payload">khepri_payload:payload()</a>, child_nodes = #{<a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-component">khepri_path:component()</a> := #node{props = <a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-props">khepri_machine:props()</a>, payload = <a href="/home/runner/work/khepri/khepri/doc/khepri_payload.html#type-payload">khepri_payload:payload()</a>, child_nodes = #{<a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-component">khepri_path:component()</a> := #node{}}}}}</code></p>
-<p>  A node in the tree structure.</p>
-
-<h3 class="typedecl"><a name="type-triggered">triggered()</a></h3>
-<p><code>triggered() = #triggered{id = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-trigger_id">khepri:trigger_id()</a>, event_filter = <a href="/home/runner/work/khepri/khepri/doc/khepri_evf.html#type-event_filter">khepri_evf:event_filter()</a>, sproc = <a href="/home/runner/work/khepri/khepri/doc/khepri_fun.html#type-standalone_fun">khepri_fun:standalone_fun()</a>, props = map()}</code></p>
+<h1>
+<button class="settings display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
 
 
-<h3 class="typedecl"><a name="type-tx_ret">tx_ret()</a></h3>
-<p><code>tx_ret() = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-ok">khepri:ok</a>(<a href="/home/runner/work/khepri/khepri/doc/khepri_tx.html#type-tx_fun_result">khepri_tx:tx_fun_result()</a>) | <a href="/home/runner/work/khepri/khepri/doc/khepri_tx.html#type-tx_abort">khepri_tx:tx_abort()</a> | no_return()</code></p>
+  <span translate="no">khepri_machine</span> 
+  <small class="app-vsn" translate="no">(khepri v0.4.3)</small>
+
+</h1>
 
 
-<h2><a name="index">Function Index</a></h2>
-<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#get-3">get/3</a></td><td>Returns all tree nodes matching the given path pattern.</td></tr>
-<tr><td valign="top"><a href="#count-3">count/3</a></td><td>Counts all tree nodes matching the path pattern.</td></tr>
-<tr><td valign="top"><a href="#delete-3">delete/3</a></td><td>Deletes all tree nodes matching the path pattern.</td></tr>
-<tr><td valign="top"><a href="#transaction-4">transaction/4</a></td><td>Runs a transaction and returns the result.</td></tr>
-<tr><td valign="top"><a href="#handle_tx_exception-1">handle_tx_exception/1</a></td><td></td></tr>
-<tr><td valign="top"><a href="#run_sproc-4">run_sproc/4</a></td><td>Executes a stored procedure.</td></tr>
-<tr><td valign="top"><a href="#register_trigger-5">register_trigger/5</a></td><td>Registers a trigger.</td></tr>
-</table>
+  <section id="moduledoc">
+<p>Khepri private low-level API.</p><p>This module exposes the private &quot;low-level&quot; API to the Khepri database and state machine. Main functions correspond to Ra commands implemented by the state machine. All functions in <a href="khepri.html"><code>khepri</code></a> are built on top of this module.</p>This module is private. The documentation is still visible because it may help understand some implementation details. However, this module should never be called directly outside of Khepri.
+  </section>
 
-<h2><a name="functions">Function Details</a></h2>
 
-<h3 class="function"><a name="get-3">get/3</a></h3>
-<div class="spec">
-<p><code>get(StoreId, PathPattern, Options) -&gt; Ret</code>
-<ul class="definitions"><li><code>StoreId = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-store_id">khepri:store_id()</a></code></li><li><code>PathPattern = <a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-pattern">khepri_path:pattern()</a></code></li><li><code>Options = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-query_options">khepri:query_options()</a> | <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-tree_options">khepri:tree_options()</a></code></li><li><code>Ret = <a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-common_ret">khepri_machine:common_ret()</a></code></li></ul></p>
-<p><code>StoreId</code>: the name of the Ra cluster.<br>
-<code>PathPattern</code>: the path (or path pattern) to the nodes to get.<br>
-<code>Options</code>: query options such as <code>favor</code>.
- <br>
-</p>
-<p>returns: an <code>{ok, NodePropsMap}</code> tuple with a map with zero, one or more
-  entries, or an <code>{error, Reason}</code> tuple.</p>
-</div><p>Returns all tree nodes matching the given path pattern.
- </p>
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+      Summary
+    </h1>
 
-<h3 class="function"><a name="count-3">count/3</a></h3>
-<div class="spec">
-<p><code>count(StoreId, PathPattern, Options) -&gt; Ret</code>
-<ul class="definitions"><li><code>StoreId = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-store_id">khepri:store_id()</a></code></li><li><code>PathPattern = <a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-pattern">khepri_path:pattern()</a></code></li><li><code>Options = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-query_options">khepri:query_options()</a> | <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-tree_options">khepri:tree_options()</a></code></li><li><code>Ret = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-ok">khepri:ok</a>(Count) | <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-error">khepri:error()</a></code></li><li><code>Count = non_neg_integer()</code></li></ul></p>
-<p><code>StoreId</code>: the name of the Ra cluster.<br>
-<code>PathPattern</code>: the path (or path pattern) to the nodes to count.<br>
-<code>Options</code>: query options such as <code>favor</code>.
- <br>
-</p>
-<p>returns: an <code>{ok, Count}</code> tuple with the number of matching tree nodes, or
-  an <code>{error, Reason}</code> tuple.</p>
-</div><p>Counts all tree nodes matching the path pattern.
- </p>
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
 
-<h3 class="function"><a name="delete-3">delete/3</a></h3>
-<div class="spec">
-<p><code>delete(StoreId, PathPattern, Options) -&gt; Ret</code>
-<ul class="definitions"><li><code>StoreId = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-store_id">khepri:store_id()</a></code></li><li><code>PathPattern = <a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-pattern">khepri_path:pattern()</a></code></li><li><code>Options = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-command_options">khepri:command_options()</a> | <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-tree_options">khepri:tree_options()</a></code></li><li><code>Ret = <a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-common_ret">khepri_machine:common_ret()</a> | <a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-async_ret">khepri_machine:async_ret()</a></code></li></ul></p>
-<p><code>StoreId</code>: the name of the Ra cluster.<br>
-<code>PathPattern</code>: the path (or path pattern) to the nodes to delete.<br>
-<code>Options</code>: command options such as the command type.
- <br>
-</p>
-<p>returns: in the case of a synchronous delete, an <code>{ok, NodePropsMap}</code> tuple
-  with a map with zero, one or more entries, or an <code>{error, Reason}</code> tuple;
-  in the case of an asynchronous put, always <code>ok</code> (the actual return value
-  may be sent by a message if a correlation ID was specified).</p>
-</div><p>Deletes all tree nodes matching the path pattern.
- </p>
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:async_ret/0" translate="no">async_ret/0</a>
 
-<h3 class="function"><a name="transaction-4">transaction/4</a></h3>
-<div class="spec">
-<p><code>transaction(StoreId, Fun, ReadWrite, Options) -&gt; Ret</code>
-<ul class="definitions"><li><code>StoreId = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-store_id">khepri:store_id()</a></code></li><li><code>Fun = <a href="/home/runner/work/khepri/khepri/doc/khepri_tx.html#type-tx_fun">khepri_tx:tx_fun()</a></code></li><li><code>ReadWrite = ro | rw | auto</code></li><li><code>Options = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-command_options">khepri:command_options()</a> | <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-query_options">khepri:query_options()</a></code></li><li><code>Ret = <a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-tx_ret">khepri_machine:tx_ret()</a> | <a href="/home/runner/work/khepri/khepri/doc/khepri_machine.html#type-async_ret">khepri_machine:async_ret()</a></code></li></ul></p>
-<p><code>StoreId</code>: the name of the Ra cluster.<br>
-<code>Fun</code>: an arbitrary anonymous function.<br>
-<code>ReadWrite</code>: the read/write or read-only nature of the transaction.<br>
-<code>Options</code>: command options such as the command type.
- <br>
-</p>
-<p>returns: in the case of a synchronous transaction, <code>{ok, Result}</code> where
-  <code>Result</code> is the return value of <code>Fun</code>, or <code>{error, Reason}</code> if the
-  anonymous function was aborted; in the case of an asynchronous transaction,
-  always <code>ok</code> (the actual return value may be sent by a message if a
-  correlation ID was specified).</p>
-</div><p>Runs a transaction and returns the result.
- </p>
+        </div>
 
-<h3 class="function"><a name="handle_tx_exception-1">handle_tx_exception/1</a></h3>
-<div class="spec">
-<p><code>handle_tx_exception(X1) -&gt; any()</code></p>
-<p></p>
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:command/0" translate="no">command/0</a>
+
+        </div>
+
+          <div class="summary-synopsis">Commands specific to this Ra machine.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:common_ret/0" translate="no">common_ret/0</a>
+
+        </div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:keep_while_aftermath/0" translate="no">keep_while_aftermath/0</a>
+
+        </div>
+
+          <div class="summary-synopsis">Internal index of the per-node changes which happened during a traversal. This is used when the tree is walked back up to determine the list of tree nodes to remove after some keep_while condition evaluates to false.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:keep_while_conds_map/0" translate="no">keep_while_conds_map/0</a>
+
+        </div>
+
+          <div class="summary-synopsis">Per-node <code>keep_while</code> conditions.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:keep_while_conds_revidx/0" translate="no">keep_while_conds_revidx/0</a>
+
+        </div>
+
+          <div class="summary-synopsis">Internal reverse index of the keep_while conditions. If node A depends on a condition on node B, then this reverse index will have a &quot;node B =&gt; node A&quot; entry.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:machine_config/0" translate="no">machine_config/0</a>
+
+        </div>
+
+          <div class="summary-synopsis">Configuration record, holding read-only or rarely changing fields.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:machine_init_args/0" translate="no">machine_init_args/0</a>
+
+        </div>
+
+          <div class="summary-synopsis">Structure passed to <code>init/1</code>.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:ok/2" translate="no">ok/2</a>
+
+        </div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:ok/3" translate="no">ok/3</a>
+
+        </div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:props/0" translate="no">props/0</a>
+
+        </div>
+
+          <div class="summary-synopsis">Properties attached to each node in the tree structure.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:query_fun/0" translate="no">query_fun/0</a>
+
+        </div>
+
+          <div class="summary-synopsis">Function representing a query and used <code>process_query/3</code>.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:state/0" translate="no">state/0</a>
+
+        </div>
+
+          <div class="summary-synopsis">State of this Ra state machine.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:tree_node/0" translate="no">tree_node/0</a>
+
+        </div>
+
+          <div class="summary-synopsis">A node in the tree structure.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:triggered/0" translate="no">triggered/0</a>
+
+        </div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:tx_ret/0" translate="no">tx_ret/0</a>
+
+        </div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:walk_down_the_tree_extra/0" translate="no">walk_down_the_tree_extra/0</a>
+
+        </div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#t:walk_down_the_tree_fun/0" translate="no">walk_down_the_tree_fun/0</a>
+
+        </div>
+
+          <div class="summary-synopsis">Function called to handle a node found (or an error) and used in <code>walk_down_the_tree/6</code>.</div>
+
+      </div>
+
+  </div>
+
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#count/3" translate="no">count(StoreId, PathPattern, Options)</a>
+
+        </div>
+
+          <div class="summary-synopsis">Counts all tree nodes matching the path pattern.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#delete/3" translate="no">delete(StoreId, PathPattern, Options)</a>
+
+        </div>
+
+          <div class="summary-synopsis">Deletes all tree nodes matching the path pattern.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#get/3" translate="no">get(StoreId, PathPattern, Options)</a>
+
+        </div>
+
+          <div class="summary-synopsis">Returns all tree nodes matching the given path pattern.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#handle_tx_exception/1" translate="no">handle_tx_exception(_)</a>
+
+        </div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#register_trigger/5" translate="no">register_trigger(StoreId, TriggerId, EventFilter, StoredProcPath, Options)</a>
+
+        </div>
+
+          <div class="summary-synopsis">Registers a trigger.</div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#run_sproc/4" translate="no">run_sproc(StoreId, PathPattern, Args, Options)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Executes a stored procedure.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#transaction/4" translate="no">transaction(StoreId, Fun, ReadWrite, Options)</a>
+
+        </div>
+
+          <div class="summary-synopsis">Runs a transaction and returns the result.</div>
+
+      </div>
+
+  </div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Types
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:async_ret/0">
+
+  <div class="detail-header">
+    <a href="#t:async_ret/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">async_ret/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> async_ret() :: ok.</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:command/0">
+
+  <div class="detail-header">
+    <a href="#t:command/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">command/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> command() :: #put{} | #delete{} | #tx{} | #register_trigger{} | #ack_triggered{}.</pre>
+
+      </div>
+
+Commands specific to this Ra machine.
+  </section>
+</section>
+<section class="detail" id="t:common_ret/0">
+
+  <div class="detail-header">
+    <a href="#t:common_ret/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">common_ret/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> common_ret() :: <a href="khepri.html#t:ok/1">khepri:ok</a>(<a href="khepri_adv.html#t:node_props_map/0">khepri_adv:node_props_map</a>()) | <a href="khepri.html#t:error/0">khepri:error</a>().</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:keep_while_aftermath/0">
+
+  <div class="detail-header">
+    <a href="#t:keep_while_aftermath/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">keep_while_aftermath/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> keep_while_aftermath() :: #{<a href="khepri_path.html#t:native_path/0">khepri_path:native_path</a>() => <a href="khepri.html#t:node_props/0">khepri:node_props</a>() | delete}.</pre>
+
+      </div>
+
+Internal index of the per-node changes which happened during a traversal. This is used when the tree is walked back up to determine the list of tree nodes to remove after some keep_while condition evaluates to false.
+  </section>
+</section>
+<section class="detail" id="t:keep_while_conds_map/0">
+
+  <div class="detail-header">
+    <a href="#t:keep_while_conds_map/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">keep_while_conds_map/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> keep_while_conds_map() :: #{<a href="khepri_path.html#t:native_path/0">khepri_path:native_path</a>() => <a href="khepri_condition.html#t:native_keep_while/0">khepri_condition:native_keep_while</a>()}.</pre>
+
+      </div>
+
+Per-node <code>keep_while</code> conditions.
+  </section>
+</section>
+<section class="detail" id="t:keep_while_conds_revidx/0">
+
+  <div class="detail-header">
+    <a href="#t:keep_while_conds_revidx/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">keep_while_conds_revidx/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> keep_while_conds_revidx() :: #{<a href="khepri_path.html#t:native_path/0">khepri_path:native_path</a>() => #{<a href="khepri_path.html#t:native_path/0">khepri_path:native_path</a>() => ok}}.</pre>
+
+      </div>
+
+Internal reverse index of the keep_while conditions. If node A depends on a condition on node B, then this reverse index will have a &quot;node B =&gt; node A&quot; entry.
+  </section>
+</section>
+<section class="detail" id="t:machine_config/0">
+
+  <div class="detail-header">
+    <a href="#t:machine_config/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">machine_config/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> machine_config() :: #config{}.</pre>
+
+      </div>
+
+Configuration record, holding read-only or rarely changing fields.
+  </section>
+</section>
+<section class="detail" id="t:machine_init_args/0">
+
+  <div class="detail-header">
+    <a href="#t:machine_init_args/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">machine_init_args/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> machine_init_args() ::
+    #{store_id := <a href="khepri.html#t:store_id/0">khepri:store_id</a>(),
+      member := <a href="https://hexdocs.pm/ra/ra.html#t:server_id/0">ra:server_id</a>(),
+      snapshot_interval => non_neg_integer(),
+      commands => [<a href="#t:command/0">command</a>()],
+      atom() => any()}.</pre>
+
+      </div>
+
+Structure passed to <code>init/1</code>.
+  </section>
+</section>
+<section class="detail" id="t:ok/2">
+
+  <div class="detail-header">
+    <a href="#t:ok/2" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">ok/2</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> ok(Type1, Type2) :: {ok, Type1, Type2}.</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:ok/3">
+
+  <div class="detail-header">
+    <a href="#t:ok/3" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">ok/3</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> ok(Type1, Type2, Type3) :: {ok, Type1, Type2, Type3}.</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:props/0">
+
+  <div class="detail-header">
+    <a href="#t:props/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">props/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> props() ::
+    #{payload_version := <a href="khepri.html#t:payload_version/0">khepri:payload_version</a>(),
+      child_list_version := <a href="khepri.html#t:child_list_version/0">khepri:child_list_version</a>()}.</pre>
+
+      </div>
+
+Properties attached to each node in the tree structure.
+  </section>
+</section>
+<section class="detail" id="t:query_fun/0">
+
+  <div class="detail-header">
+    <a href="#t:query_fun/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">query_fun/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> query_fun() :: fun((<a href="#t:state/0">state</a>()) -> any()).</pre>
+
+      </div>
+
+Function representing a query and used <code>process_query/3</code>.
+  </section>
+</section>
+<section class="detail" id="t:state/0">
+
+  <div class="detail-header">
+    <a href="#t:state/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">state/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> state() :: #khepri_machine{}.</pre>
+
+      </div>
+
+State of this Ra state machine.
+  </section>
+</section>
+<section class="detail" id="t:tree_node/0">
+
+  <div class="detail-header">
+    <a href="#t:tree_node/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">tree_node/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> tree_node() :: #node{}.</pre>
+
+      </div>
+
+A node in the tree structure.
+  </section>
+</section>
+<section class="detail" id="t:triggered/0">
+
+  <div class="detail-header">
+    <a href="#t:triggered/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">triggered/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> triggered() :: #triggered{}.</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:tx_ret/0">
+
+  <div class="detail-header">
+    <a href="#t:tx_ret/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">tx_ret/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> tx_ret() :: <a href="khepri.html#t:ok/1">khepri:ok</a>(<a href="khepri_tx.html#t:tx_fun_result/0">khepri_tx:tx_fun_result</a>()) | <a href="khepri_tx.html#t:tx_abort/0">khepri_tx:tx_abort</a>() | no_return().</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:walk_down_the_tree_extra/0">
+
+  <div class="detail-header">
+    <a href="#t:walk_down_the_tree_extra/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">walk_down_the_tree_extra/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> walk_down_the_tree_extra() ::
+    #{include_root_props => boolean(),
+      keep_while_conds => <a href="#t:keep_while_conds_map/0">keep_while_conds_map</a>(),
+      keep_while_conds_revidx => <a href="#t:keep_while_conds_revidx/0">keep_while_conds_revidx</a>(),
+      keep_while_aftermath => <a href="#t:keep_while_aftermath/0">keep_while_aftermath</a>()}.</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:walk_down_the_tree_fun/0">
+
+  <div class="detail-header">
+    <a href="#t:walk_down_the_tree_fun/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">walk_down_the_tree_fun/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> walk_down_the_tree_fun() ::
+    fun((<a href="khepri_path.html#t:native_path/0">khepri_path:native_path</a>(), <a href="#t:tree_node/0">tree_node</a>() | {interrupted, any(), map()}, Acc :: any()) ->
+            <a href="#t:ok/2">ok</a>(<a href="#t:tree_node/0">tree_node</a>() | keep | delete, any()) | <a href="khepri.html#t:error/0">khepri:error</a>()).</pre>
+
+      </div>
+
+Function called to handle a node found (or an error) and used in <code>walk_down_the_tree/6</code>.
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Functions
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="count/3">
+
+  <div class="detail-header">
+    <a href="#count/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">count(StoreId, PathPattern, Options)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-spec</span> count(StoreId, PathPattern, Options) -> Ret
+         when
+             StoreId :: <a href="khepri.html#t:store_id/0">khepri:store_id</a>(),
+             PathPattern :: <a href="khepri_path.html#t:pattern/0">khepri_path:pattern</a>(),
+             Options :: <a href="khepri.html#t:query_options/0">khepri:query_options</a>() | <a href="khepri.html#t:tree_options/0">khepri:tree_options</a>(),
+             Ret :: <a href="khepri.html#t:ok/1">khepri:ok</a>(Count) | <a href="khepri.html#t:error/0">khepri:error</a>(),
+             Count :: non_neg_integer().</pre>
+
+      </div>
+
+Counts all tree nodes matching the path pattern.
+  </section>
+</section>
+<section class="detail" id="delete/3">
+
+  <div class="detail-header">
+    <a href="#delete/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">delete(StoreId, PathPattern, Options)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-spec</span> delete(StoreId, PathPattern, Options) -> Ret
+          when
+              StoreId :: <a href="khepri.html#t:store_id/0">khepri:store_id</a>(),
+              PathPattern :: <a href="khepri_path.html#t:pattern/0">khepri_path:pattern</a>(),
+              Options :: <a href="khepri.html#t:command_options/0">khepri:command_options</a>() | <a href="khepri.html#t:tree_options/0">khepri:tree_options</a>(),
+              Ret :: <a href="khepri_machine.html#t:common_ret/0">khepri_machine:common_ret</a>() | <a href="khepri_machine.html#t:async_ret/0">khepri_machine:async_ret</a>().</pre>
+
+      </div>
+
+Deletes all tree nodes matching the path pattern.
+  </section>
+</section>
+<section class="detail" id="get/3">
+
+  <div class="detail-header">
+    <a href="#get/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get(StoreId, PathPattern, Options)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-spec</span> get(StoreId, PathPattern, Options) -> Ret
+       when
+           StoreId :: <a href="khepri.html#t:store_id/0">khepri:store_id</a>(),
+           PathPattern :: <a href="khepri_path.html#t:pattern/0">khepri_path:pattern</a>(),
+           Options :: <a href="khepri.html#t:query_options/0">khepri:query_options</a>() | <a href="khepri.html#t:tree_options/0">khepri:tree_options</a>(),
+           Ret :: <a href="khepri_machine.html#t:common_ret/0">khepri_machine:common_ret</a>().</pre>
+
+      </div>
+
+Returns all tree nodes matching the given path pattern.
+  </section>
+</section>
+<section class="detail" id="handle_tx_exception/1">
+
+  <div class="detail-header">
+    <a href="#handle_tx_exception/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">handle_tx_exception(_)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+
+  </section>
+</section>
+<section class="detail" id="register_trigger/5">
+
+  <div class="detail-header">
+    <a href="#register_trigger/5" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">register_trigger(StoreId, TriggerId, EventFilter, StoredProcPath, Options)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-spec</span> register_trigger(StoreId, TriggerId, EventFilter, StoredProcPath, Options) -> Ret
+                    when
+                        StoreId :: <a href="khepri.html#t:store_id/0">khepri:store_id</a>(),
+                        TriggerId :: <a href="khepri.html#t:trigger_id/0">khepri:trigger_id</a>(),
+                        EventFilter :: <a href="khepri_evf.html#t:event_filter/0">khepri_evf:event_filter</a>() | <a href="khepri_path.html#t:pattern/0">khepri_path:pattern</a>(),
+                        StoredProcPath :: <a href="khepri_path.html#t:path/0">khepri_path:path</a>(),
+                        Options :: <a href="khepri.html#t:command_options/0">khepri:command_options</a>(),
+                        Ret :: ok | <a href="khepri.html#t:error/0">khepri:error</a>().</pre>
+
+      </div>
+
+Registers a trigger.
+  </section>
+</section>
+<section class="detail" id="run_sproc/4">
+
+  <div class="detail-header">
+    <a href="#run_sproc/4" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">run_sproc(StoreId, PathPattern, Args, Options)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-spec</span> run_sproc(StoreId, PathPattern, Args, Options) -> Ret
+             when
+                 StoreId :: <a href="khepri.html#t:store_id/0">khepri:store_id</a>(),
+                 PathPattern :: <a href="khepri_path.html#t:pattern/0">khepri_path:pattern</a>(),
+                 Args :: [any()],
+                 Options :: <a href="khepri.html#t:query_options/0">khepri:query_options</a>(),
+                 Ret :: any().</pre>
+
+      </div>
+
+<p>Executes a stored procedure.</p>The stored procedure is executed in the context of the caller of <code>run_sproc/3</code>.
+  </section>
+</section>
+<section class="detail" id="transaction/4">
+
+  <div class="detail-header">
+    <a href="#transaction/4" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">transaction(StoreId, Fun, ReadWrite, Options)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-spec</span> transaction(StoreId, Fun, ReadWrite, Options) -> Ret
+               when
+                   StoreId :: <a href="khepri.html#t:store_id/0">khepri:store_id</a>(),
+                   Fun :: <a href="khepri_tx.html#t:tx_fun/0">khepri_tx:tx_fun</a>(),
+                   ReadWrite :: ro | rw | auto,
+                   Options :: <a href="khepri.html#t:command_options/0">khepri:command_options</a>() | <a href="khepri.html#t:query_options/0">khepri:query_options</a>(),
+                   Ret :: <a href="khepri_machine.html#t:tx_ret/0">khepri_machine:tx_ret</a>() | <a href="khepri_machine.html#t:async_ret/0">khepri_machine:async_ret</a>().</pre>
+
+      </div>
+
+Runs a transaction and returns the result.
+  </section>
+</section>
+
+    </div>
+  </section>
+
+      <footer class="footer">
+
+          <p>
+            On Hex.pm:
+
+            <span class="line">
+              <a href="https://hex.pm/packages/khepri/0.4.3" class="line footer-hex-package">Package</a>
+              <a href="https://preview.hex.pm/preview/khepri/0.4.3" class="line">Preview</a>
+
+                <a href="https://preview.hex.pm/preview/khepri/0.4.3/show/src/khepri_machine.erl">(current file)</a>
+
+            </span>
+
+            <button class="a-main line footer-button display-quick-switch">
+              Search
+            </button>
+          </p>
+
+        <p>
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.28.5) for the
+
+            <a href="https://erlang.org" title="Erlang" target="_blank" translate="no">Erlang programming language</a>
+
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
 </div>
 
-<h3 class="function"><a name="run_sproc-4">run_sproc/4</a></h3>
-<div class="spec">
-<p><code>run_sproc(StoreId, PathPattern, Args, Options) -&gt; Ret</code>
-<ul class="definitions"><li><code>StoreId = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-store_id">khepri:store_id()</a></code></li><li><code>PathPattern = <a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-pattern">khepri_path:pattern()</a></code></li><li><code>Args = [any()]</code></li><li><code>Options = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-query_options">khepri:query_options()</a></code></li><li><code>Ret = any()</code></li></ul></p>
-<p><code>StoreId</code>: the name of the Ra cluster.<br>
-<code>PathPattern</code>: the path to the stored procedure.<br>
-<code>Args</code>: the list of args to pass to the stored procedure; its length
-         must be equal to the stored procedure arity.<br>
-<code>Options</code>: options to tune the tree traversal or the returned structure
-         content.
- <br>
-</p>
-<p>returns: the result of the stored procedure execution, or throws an
-  exception if the node does not exist, does not hold a stored procedure or
-  if there was an error.</p>
-</div><p><p>Executes a stored procedure.</p>
- 
-  The stored procedure is executed in the context of the caller of <a docgen-rel="seemfa" docgen-href="#run_sproc/3" href="#run_sproc-3"><code>run_sproc/3</code></a>.
- </p>
 
-<h3 class="function"><a name="register_trigger-5">register_trigger/5</a></h3>
-<div class="spec">
-<p><code>register_trigger(StoreId, TriggerId, EventFilter, StoredProcPath, Options) -&gt; Ret</code>
-<ul class="definitions"><li><code>StoreId = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-store_id">khepri:store_id()</a></code></li><li><code>TriggerId = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-trigger_id">khepri:trigger_id()</a></code></li><li><code>EventFilter = <a href="/home/runner/work/khepri/khepri/doc/khepri_evf.html#type-event_filter">khepri_evf:event_filter()</a> | <a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-pattern">khepri_path:pattern()</a></code></li><li><code>StoredProcPath = <a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-path">khepri_path:path()</a></code></li><li><code>Options = <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-command_options">khepri:command_options()</a></code></li><li><code>Ret = ok | <a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-error">khepri:error()</a></code></li></ul></p>
-<p><code>StoreId</code>: the name of the Ra cluster.<br>
-<code>TriggerId</code>: the name of the trigger.<br>
-<code>EventFilter</code>: the event filter used to associate an event with a
-         stored procedure.<br>
-<code>StoredProcPath</code>: the path to the stored procedure to execute when the
-         corresponding event occurs.
- <br>
-</p>
-<p>returns: <code>ok</code> if the trigger was registered, an <code>{error, Reason}</code> tuple
-  otherwise.</p>
-</div><p>Registers a trigger.
- </p>
-<hr>
-
-<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
-<p><i>Generated by EDoc</i></p>
-</body>
+  </body>
 </html>

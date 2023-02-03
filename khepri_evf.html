@@ -1,505 +1,133 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.28.5">
-    <meta name="project" content="khepri v0.4.3">
-
-    <title>khepri_evf — khepri v0.4.3</title>
-    <link rel="stylesheet" href="dist/html-erlang-C3352F33.css" />
-
-    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
-    <script src="dist/handlebars.templates-X7YVL3G2.js"></script>
-    <script src="dist/sidebar_items-FD7723E7.js"></script>
-
-      <script src="docs_config.js"></script>
-
-    <script async src="dist/html-PLW5RNNI.js"></script>
-
-
-  </head>
-  <body data-type="modules" class="page-module">
-    <script>
-
-      try {
-        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
-
-        if (settings.theme === 'dark' ||
-           ((settings.theme === 'system' || settings.theme == null) &&
-             window.matchMedia('(prefers-color-scheme: dark)').matches)
-           ) {
-          document.body.classList.add('dark')
-        }
-      } catch (error) { }
-    </script>
-
-<div class="main">
-
-<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
-  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
-</button>
-
-<section class="sidebar">
-  <form class="sidebar-search" action="search.html">
-    <button type="submit" class="search-button" aria-label="Submit Search">
-      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
-    </button>
-    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
-      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
-    </button>
-    <label class="search-label">
-      <p class="sr-only">Search</p>
-      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
-    </label>
-  </form>
-
-  <div class="autocomplete">
-    <div class="autocomplete-results">
-    </div>
-  </div>
-
-  <div class="sidebar-header">
-
-      <a href="overview.html">
-        <img src="assets/logo.svg" alt="khepri" class="sidebar-projectImage">
-      </a>
-
-    <div class="sidebar-projectDetails">
-      <a href="overview.html" class="sidebar-projectName" translate="no">
-khepri
-      </a>
-      <strong class="sidebar-projectVersion" translate="no">
-        v0.4.3
-      </strong>
-    </div>
-    <ul class="sidebar-listNav">
-      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
-
-        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
-
-
-    </ul>
-  </div>
-
-  <div class="gradient"></div>
-  <ul id="full-list" class="sidebar-fullList"></ul>
-</section>
-
-<section class="content">
-  <output role="status" id="toast"></output>
-  <div class="content-outer">
-    <div id="content" class="content-inner">
-
-<h1>
-<button class="settings display-settings">
-  <i class="ri-settings-3-line"></i>
-  <span class="sr-only">Settings</span>
-</button>
-
-
-  <span translate="no">khepri_evf</span> 
-  <small class="app-vsn" translate="no">(khepri v0.4.3)</small>
-
-</h1>
-
-
-  <section id="moduledoc">
-Khepri event filters.
-  </section>
-
-
-  <section id="summary" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#summary">
-        <i class="ri-link-m" aria-hidden="true"></i>
-        <span class="sr-only">Link to this section</span>
-      </a>
-      Summary
-    </h1>
-
-  <div class="summary-types summary">
-    <h2>
-      <a href="#types">Types</a>
-    </h2>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#t:event_filter/0" translate="no">event_filter/0</a>
-
-        </div>
-
-          <div class="summary-synopsis"><p>An event filter.</p></div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#t:priority/0" translate="no">priority/0</a>
-
-        </div>
-
-          <div class="summary-synopsis"><p>An event filter priority.</p></div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#t:tree_event_filter/0" translate="no">tree_event_filter/0</a>
-
-        </div>
-
-          <div class="summary-synopsis"><p>A tree event filter.</p></div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#t:tree_event_filter_props/0" translate="no">tree_event_filter_props/0</a>
-
-        </div>
-
-          <div class="summary-synopsis"><p>Tree event filter properties.</p></div>
-
-      </div>
-
-  </div>
-
-  <div class="summary-functions summary">
-    <h2>
-      <a href="#functions">Functions</a>
-    </h2>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_priority/1" translate="no">get_priority(EventFilter)</a>
-
-        </div>
-
-          <div class="summary-synopsis">Returns the priority of the event filter.</div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#set_priority/2" translate="no">set_priority(EventFilter, Priority)</a>
-
-        </div>
-
-          <div class="summary-synopsis">Sets the priority of the event filter.</div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#tree/1" translate="no">tree(PathPattern)</a>
-
-        </div>
-
-          <div class="summary-synopsis">Constructs a tree event filter.<p><em>See also: </em><a href="#tree/2">tree/2</a>.</p></div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#tree/2" translate="no">tree(PathPattern, Props)</a>
-
-        </div>
-
-          <div class="summary-synopsis">Constructs a tree event filter.<p><em>See also: </em><a href="#t:tree_event_filter/0">tree_event_filter()</a>.</p></div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#wrap/1" translate="no">wrap(Input)</a>
-
-        </div>
-
-          <div class="summary-synopsis">Automatically detects the event filter type and ensures it is wrapped in one of the internal types.</div>
-
-      </div>
-
-  </div>
-
-  </section>
-
-
-  <section id="types" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#types">
-        <i class="ri-link-m" aria-hidden="true"></i>
-        <span class="sr-only">Link to this section</span>
-      </a>
-Types
-    </h1>
-    <div class="types-list">
-<section class="detail" id="t:event_filter/0">
-
-  <div class="detail-header">
-    <a href="#t:event_filter/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">event_filter/0</h1>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">-type</span> event_filter() :: <a href="#t:tree_event_filter/0">tree_event_filter</a>().</pre>
-
-      </div>
-
-<p>An event filter.</p>The following event filters are supported:<ul><li>Tree event filter (<a href="#t:tree_event_filter/0"><code>tree_event_filter()</code></a></li></ul>An event filter can be explicitly constructed using the functions provided in this module. However, some common types will be automatically detected and converted to an event filter with default properties. See each event filter type for more details.
-  </section>
-</section>
-<section class="detail" id="t:priority/0">
-
-  <div class="detail-header">
-    <a href="#t:priority/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">priority/0</h1>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">-type</span> priority() :: integer().</pre>
-
-      </div>
-
-<p>An event filter priority.</p><p>This is an integer to prioritize event filters: the greater the priority, the more it is prioritized. Negative integers are allowed.</p>The default priority is 0.
-  </section>
-</section>
-<section class="detail" id="t:tree_event_filter/0">
-
-  <div class="detail-header">
-    <a href="#t:tree_event_filter/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">tree_event_filter/0</h1>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">-type</span> tree_event_filter() :: #evf_tree{}.</pre>
-
-      </div>
-
-<p>A tree event filter.</p>It takes a path pattern to monitor and optionally properties.
-  </section>
-</section>
-<section class="detail" id="t:tree_event_filter_props/0">
-
-  <div class="detail-header">
-    <a href="#t:tree_event_filter_props/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">tree_event_filter_props/0</h1>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">-type</span> tree_event_filter_props() ::
-    #{on_actions => [create | update | delete], priority => <a href="khepri_evf.html#t:priority/0">khepri_evf:priority</a>()}.</pre>
-
-      </div>
-
-<p>Tree event filter properties.</p>The properties are:<ul><li><code>on_actions</code>: a list of actions to filter among <code>create</code>, <code>update</code> and <code>delete</code>; the default is to react to all of them.</li><li><code>priority</code>: a <a href="#t:priority/0"><code>priority()</code></a></li></ul>A Khepri path, whether it is a native path or a Unix-like path, can be used as a tree event filter. It will be automatically converted to a tree event filter with default properties.
-  </section>
-</section>
-
-    </div>
-  </section>
-
-  <section id="functions" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#functions">
-        <i class="ri-link-m" aria-hidden="true"></i>
-        <span class="sr-only">Link to this section</span>
-      </a>
-Functions
-    </h1>
-    <div class="functions-list">
-<section class="detail" id="get_priority/1">
-
-  <div class="detail-header">
-    <a href="#get_priority/1" class="detail-link" title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">get_priority(EventFilter)</h1>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">-spec</span> get_priority(EventFilter) -> Priority when EventFilter :: <a href="#t:event_filter/0">event_filter</a>(), Priority :: <a href="#t:priority/0">priority</a>().</pre>
-
-      </div>
-
-Returns the priority of the event filter.
-  </section>
-</section>
-<section class="detail" id="set_priority/2">
-
-  <div class="detail-header">
-    <a href="#set_priority/2" class="detail-link" title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">set_priority(EventFilter, Priority)</h1>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">-spec</span> set_priority(EventFilter, Priority) -> EventFilter
-                when EventFilter :: <a href="#t:event_filter/0">event_filter</a>(), Priority :: <a href="#t:priority/0">priority</a>().</pre>
-
-      </div>
-
-Sets the priority of the event filter.
-  </section>
-</section>
-<section class="detail" id="tree/1">
-
-  <div class="detail-header">
-    <a href="#tree/1" class="detail-link" title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">tree(PathPattern)</h1>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">-spec</span> tree(PathPattern) -> EventFilter
-        when PathPattern :: <a href="khepri_path.html#t:pattern/0">khepri_path:pattern</a>() | string(), EventFilter :: <a href="#t:tree_event_filter/0">tree_event_filter</a>().</pre>
-
-      </div>
-
-Constructs a tree event filter.<p><em>See also: </em><a href="#tree/2">tree/2</a>.</p>
-  </section>
-</section>
-<section class="detail" id="tree/2">
-
-  <div class="detail-header">
-    <a href="#tree/2" class="detail-link" title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">tree(PathPattern, Props)</h1>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">-spec</span> tree(PathPattern, Props) -> EventFilter
-        when
-            PathPattern :: <a href="khepri_path.html#t:pattern/0">khepri_path:pattern</a>() | string(),
-            Props :: <a href="#t:tree_event_filter_props/0">tree_event_filter_props</a>(),
-            EventFilter :: <a href="#t:tree_event_filter/0">tree_event_filter</a>().</pre>
-
-      </div>
-
-Constructs a tree event filter.<p><em>See also: </em><a href="#t:tree_event_filter/0">tree_event_filter()</a>.</p>
-  </section>
-</section>
-<section class="detail" id="wrap/1">
-
-  <div class="detail-header">
-    <a href="#wrap/1" class="detail-link" title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">wrap(Input)</h1>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">-spec</span> wrap(Input) -> EventFilter
-        when
-            Input :: <a href="#t:event_filter/0">event_filter</a>() | <a href="khepri_path.html#t:pattern/0">khepri_path:pattern</a>() | string(),
-            EventFilter :: <a href="#t:event_filter/0">event_filter</a>().</pre>
-
-      </div>
-
-Automatically detects the event filter type and ensures it is wrapped in one of the internal types.
-  </section>
-</section>
-
-    </div>
-  </section>
-
-      <footer class="footer">
-
-          <p>
-            On Hex.pm:
-
-            <span class="line">
-              <a href="https://hex.pm/packages/khepri/0.4.3" class="line footer-hex-package">Package</a>
-              <a href="https://preview.hex.pm/preview/khepri/0.4.3" class="line">Preview</a>
-
-                <a href="https://preview.hex.pm/preview/khepri/0.4.3/show/src/khepri_evf.erl">(current file)</a>
-
-            </span>
-
-            <button class="a-main line footer-button display-quick-switch">
-              Search
-            </button>
-          </p>
-
-        <p>
-          Built using
-          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.28.5) for the
-
-            <a href="https://erlang.org" title="Erlang" target="_blank" translate="no">Erlang programming language</a>
-
-        </p>
-      </footer>
-    </div>
-  </div>
-</section>
-</div>
-
-
-  </body>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module khepri_evf</title>
+<link rel="stylesheet" type="text/css" href="edoc-extensions.css" title="EDoc">
+<link rel="icon" href="khepri-favicon.svg" type="image/svg+xml">
+</head>
+<body class="markdown-body language-erlang"><script src="prism.js"></script>
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module khepri_evf</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>Khepri event filters.
+
+
+<h2><a name="description">Description</a></h2>Khepri event filters.
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-event_filter">event_filter()</a></h3>
+<p><code>event_filter() = <a href="#type-tree_event_filter">tree_event_filter()</a></code></p>
+<p><p>  An event filter.</p>
+ 
+  The following event filters are supported:
+  <ul>
+  <li>Tree event filter (<a docgen-rel="seetype" docgen-href="#tree_event_filter/0" href="#type-tree_event_filter"><code>tree_event_filter()</code></a></li>
+  </ul>
+ 
+  An event filter can be explicitly constructed using the functions provided
+  in this module. However, some common types will be automatically detected
+  and converted to an event filter with default properties. See each event
+  filter type for more details.</p>
+
+<h3 class="typedecl"><a name="type-priority">priority()</a></h3>
+<p><code>priority() = integer()</code></p>
+<p><p>  An event filter priority.</p>
+ 
+  <p>This is an integer to prioritize event filters: the greater the priority,  
+the more it is prioritized. Negative integers are allowed.</p>
+ 
+  The default priority is 0.</p>
+
+<h3 class="typedecl"><a name="type-tree_event_filter">tree_event_filter()</a></h3>
+<p><code>tree_event_filter() = #evf_tree{path = <a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-native_pattern">khepri_path:native_pattern()</a>, props = <a href="/home/runner/work/khepri/khepri/doc/khepri_evf.html#type-tree_event_filter_props">khepri_evf:tree_event_filter_props()</a>}</code></p>
+<p><p>  A tree event filter.</p>
+ 
+  It takes a path pattern to monitor and optionally properties.</p>
+
+<h3 class="typedecl"><a name="type-tree_event_filter_props">tree_event_filter_props()</a></h3>
+<p><code>tree_event_filter_props() = #{on_actions =&gt; [create | update | delete], priority =&gt; <a href="/home/runner/work/khepri/khepri/doc/khepri_evf.html#type-priority">khepri_evf:priority()</a>}</code></p>
+<p><p>  Tree event filter properties.</p>
+ 
+  The properties are:
+  <ul>
+  <li><code>on_actions</code>: a list of actions to filter among <code>create</code>, <code>update</code> and
+  <code>delete</code>; the default is to react to all of them.</li>
+  <li><code>priority</code>: a <a docgen-rel="seetype" docgen-href="#priority/0" href="#type-priority"><code>priority()</code></a></li>
+  </ul>
+ 
+  A Khepri path, whether it is a native path or a Unix-like path, can be used
+  as a tree event filter. It will be automatically converted to a tree event
+  filter with default properties.</p>
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#tree-1">tree/1</a></td><td>Constructs a tree event filter.</td></tr>
+<tr><td valign="top"><a href="#tree-2">tree/2</a></td><td>Constructs a tree event filter.</td></tr>
+<tr><td valign="top"><a href="#wrap-1">wrap/1</a></td><td>Automatically detects the event filter type and ensures it is wrapped
+  in one of the internal types.</td></tr>
+<tr><td valign="top"><a href="#get_priority-1">get_priority/1</a></td><td>Returns the priority of the event filter.</td></tr>
+<tr><td valign="top"><a href="#set_priority-2">set_priority/2</a></td><td>Sets the priority of the event filter.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="tree-1">tree/1</a></h3>
+<div class="spec">
+<p><code>tree(PathPattern) -&gt; EventFilter</code>
+<ul class="definitions"><li><code>PathPattern = <a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-pattern">khepri_path:pattern()</a> | string()</code></li><li><code>EventFilter = <a href="#type-tree_event_filter">tree_event_filter()</a></code></li></ul></p>
+<p></p>
+</div><p>Constructs a tree event filter.
+ </p>
+<p><b>See also:</b> <a href="#tree-2">tree/2</a>.</p>
+
+<h3 class="function"><a name="tree-2">tree/2</a></h3>
+<div class="spec">
+<p><code>tree(PathPattern, Props) -&gt; EventFilter</code>
+<ul class="definitions"><li><code>PathPattern = <a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-pattern">khepri_path:pattern()</a> | string()</code></li><li><code>Props = <a href="#type-tree_event_filter_props">tree_event_filter_props()</a></code></li><li><code>EventFilter = <a href="#type-tree_event_filter">tree_event_filter()</a></code></li></ul></p>
+<p></p>
+</div><p>Constructs a tree event filter.
+ </p>
+<p><b>See also:</b> <a href="#type-tree_event_filter">tree_event_filter()</a>.</p>
+
+<h3 class="function"><a name="wrap-1">wrap/1</a></h3>
+<div class="spec">
+<p><code>wrap(Input) -&gt; EventFilter</code>
+<ul class="definitions"><li><code>Input = <a href="#type-event_filter">event_filter()</a> | <a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-pattern">khepri_path:pattern()</a> | string()</code></li><li><code>EventFilter = <a href="#type-event_filter">event_filter()</a></code></li></ul></p>
+<p><code>Input</code>: an already created event filter, or any term which can be
+         automatically converted to an event filter.
+ <br>
+</p>
+<p>returns: the created event filter.</p>
+</div><p>Automatically detects the event filter type and ensures it is wrapped
+  in one of the internal types.
+ </p>
+
+<h3 class="function"><a name="get_priority-1">get_priority/1</a></h3>
+<div class="spec">
+<p><code>get_priority(EventFilter) -&gt; Priority</code>
+<ul class="definitions"><li><code>EventFilter = <a href="#type-event_filter">event_filter()</a></code></li><li><code>Priority = <a href="#type-priority">priority()</a></code></li></ul></p>
+<p><code>EventFilter</code>: the event filter to update.
+ <br>
+</p>
+<p>returns: the priority.</p>
+</div><p>Returns the priority of the event filter.
+ </p>
+
+<h3 class="function"><a name="set_priority-2">set_priority/2</a></h3>
+<div class="spec">
+<p><code>set_priority(EventFilter, Priority) -&gt; EventFilter</code>
+<ul class="definitions"><li><code>EventFilter = <a href="#type-event_filter">event_filter()</a></code></li><li><code>Priority = <a href="#type-priority">priority()</a></code></li></ul></p>
+<p><code>EventFilter</code>: the event filter to update.<br>
+<code>Priority</code>: the new priority.
+ <br>
+</p>
+<p>returns: the updated event filter.</p>
+</div><p>Sets the priority of the event filter.
+ </p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc</i></p>
+</body>
 </html>

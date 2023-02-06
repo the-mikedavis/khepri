@@ -1,147 +1,483 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Module khepri_projection</title>
-<link rel="stylesheet" type="text/css" href="edoc-extensions.css" title="EDoc">
-<link rel="icon" href="khepri-favicon.svg" type="image/svg+xml">
-</head>
-<body class="markdown-body language-erlang"><script src="prism.js"></script>
-<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
-<hr>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.29.1">
+    <meta name="project" content="khepri v0.6.0">
 
-<h1>Module khepri_projection</h1>
-<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>Khepri projections.
+    <title>khepri_projection — khepri v0.6.0</title>
+    <link rel="stylesheet" href="dist/html-erlang-GK6YAAQS.css" />
 
 
-<h2><a name="description">Description</a></h2><p>Khepri projections</p>
- 
-  <p>Projections build a replicated ETS table using tree nodes from the store
-  which match a <a docgen-rel="seetype" docgen-href="khepri_path#pattern/0" href="khepri_path.html#type-pattern"><code>khepri_path:pattern()</code></a>. When a tree node matching a
-  projection's pattern is changed in the store, the tree node is passed
-  through the projection's <a docgen-rel="seetype" docgen-href="#projection_fun/0" href="#type-projection_fun"><code>projection_fun()</code></a> to create record(s).  
-These records are then stored in the projection's ETS table for all members  
-in a Khepri cluster.</p>
- 
-  <p>Projections provide a way to query the store as fast as possible and are  
-appropriate for lookups which require low latency and/or high throughput.  
-Projection tables contain all records matching the pattern, though, so the  
-memory footprint of a projection table grows with the number of tree nodes in  
-the store matching the pattern.</p>
- 
-  <p>Projection ETS tables are owned by the Khepri cluster and are deleted when  
-the cluster stops.</p>
- 
-  Updates to projection tables are immediately consistent for the member of
-  the cluster on which the change to the store is made and the leader member
-  but are eventually consistent for all other followers.
-<h2><a name="types">Data Types</a></h2>
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-IV5W3OL2.js"></script>
+    <script src="dist/sidebar_items-40A8A753.js"></script>
 
-<h3 class="typedecl"><a name="type-extended_projection_fun">extended_projection_fun()</a></h3>
-<p><code>extended_projection_fun() = fun((Table::<a href="/home/runner/work/khepri/stdlib/doc/ets.html#type-tid">ets:tid()</a>, Path::<a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-native_path">khepri_path:native_path()</a>, OldPayload::<a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-node_props">khepri:node_props()</a>, NewPayload::<a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-node_props">khepri:node_props()</a>) -&gt; any())</code></p>
-<p><p>  An extended projection function.</p>
- 
-  <p>In some cases, a tree node in the store might correspond to many objects in  
-a projection table. Extended projection functions are allowed to call ETS  
-functions directly in order to build the projection table.</p>
- 
-  <p><code>OldPayload</code> or <code>NewPayload</code> are empty maps if there is no tree node. For
-  example, a newly created tree node will have an empty map for <code>OldPayload</code>
-  and a <a docgen-rel="seetype" docgen-href="khepri#node_props/0" href="khepri.html#type-node_props"><code>khepri:node_props()</code></a> map with values for <code>NewPayload</code>.</p>
- 
-  <p>This function is compiled like a transaction function except that calls
-  to the <a docgen-rel="seeerl" docgen-href="ets" href="ets.html"><code>ets</code></a> module are allowed.</p>
- 
-  The return value of this function is ignored.</p>
+      <script src="docs_config.js"></script>
 
-<h3 class="typedecl"><a name="type-options">options()</a></h3>
-<p><code>options() = #{type =&gt; <a href="/home/runner/work/khepri/stdlib/doc/ets.html#type-table_type">ets:table_type()</a>, keypos =&gt; pos_integer(), read_concurrency =&gt; boolean(), write_concurrency =&gt; boolean() | auto, compressed =&gt; boolean()}</code></p>
-<p><p>  Options which control the created ETS table.</p>
- 
-  <p>These options are a subset of the options available to <a docgen-rel="seemfa" docgen-href="ets#new/2" href="ets.html#new-2"><code>ets:new/2</code></a>.
-  Refer to the <a docgen-rel="seemfa" docgen-href="ets#new/2" href="ets.html#new-2"><code>ets:new/2</code></a> documentation for a reference on each type  
-and available values.</p>
- 
-  When a projection is created from a <a docgen-rel="seetype" docgen-href="#simple_projection_fun/0" href="#type-simple_projection_fun"><code>simple_projection_fun()</code></a>, the
-  <code>type</code> option may only be <code>set</code> or <code>ordered_set</code>: <code>bag</code> types are not
-  allowed. <a docgen-rel="seetype" docgen-href="#extended_projection_fun/0" href="#type-extended_projection_fun"><code>extended_projection_fun()</code></a>s may use any valid <a docgen-rel="seetype" docgen-href="ets#table_type/0" href="ets.html#type-table_type"><code>ets:table_type()</code></a>.</p>
+    <script async src="dist/html-XN2TSG4M.js"></script>
 
-<h3 class="typedecl"><a name="type-projection">projection()</a></h3>
-<p><code>projection() = #khepri_projection{name = atom(), projection_fun = <a href="/home/runner/work/khepri/khepri/doc/khepri_fun.html#type-standalone_fun">khepri_fun:standalone_fun()</a>, ets_options = [atom() | tuple()]}</code></p>
-<p>  A projection resource.
- </p>
 
-<h3 class="typedecl"><a name="type-projection_fun">projection_fun()</a></h3>
-<p><code>projection_fun() = <a href="#type-simple_projection_fun">simple_projection_fun()</a> | <a href="#type-extended_projection_fun">extended_projection_fun()</a></code></p>
-<p><p>  A function that formats an entry in the tree into a record to be stored in a  
-projection.</p>
- 
-  <p>Projection functions may either be "simple" or "extended." See <a docgen-rel="seetype" docgen-href="#simple_projection_fun/0" href="#type-simple_projection_fun"><code>simple_projection_fun()</code></a> and <a docgen-rel="seetype" docgen-href="#extended_projection_fun/0" href="#type-extended_projection_fun"><code>extended_projection_fun()</code></a> for more  
-information.</p>
- 
-  The projection function is executed directly by the Ra server process. The
-  function should be as simple and fast as possible to avoid slowing down the
-  server.</p>
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
 
-<h3 class="typedecl"><a name="type-simple_projection_fun">simple_projection_fun()</a></h3>
-<p><code>simple_projection_fun() = fun((Path::<a href="/home/runner/work/khepri/khepri/doc/khepri_path.html#type-native_path">khepri_path:native_path()</a>, Payload::<a href="/home/runner/work/khepri/khepri/doc/khepri.html#type-data">khepri:data()</a>) -&gt; Record::tuple())</code></p>
-<p><p>  A simple projection function.</p>
- 
-  <p>Simple projection functions only take the path and payload for a tree node  
-in the store. The record produced by the function is used to create and  
-delete objects in the ETS table.</p>
- 
-  This function is compiled the same way as a transaction function: all
-  side-effects are not allowed. Additionally, for any <code>Path</code> and <code>Payload</code>
-  inputs, this function must consistently return the same <code>Record</code>.</p>
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
 
-<h2><a name="index">Function Index</a></h2>
-<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#new-2">new/2</a></td><td></td></tr>
-<tr><td valign="top"><a href="#new-3">new/3</a></td><td>Creates a new projection data structure.</td></tr>
-<tr><td valign="top"><a href="#name-1">name/1</a></td><td>Returns the name of the given <code>Projection</code>.</td></tr>
-</table>
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
 
-<h2><a name="functions">Function Details</a></h2>
+<div class="main">
 
-<h3 class="function"><a name="new-2">new/2</a></h3>
-<div class="spec">
-<p><code>new(Name, ProjectionFun) -&gt; Projection</code>
-<ul class="definitions"><li><code>Name = atom()</code></li><li><code>ProjectionFun = <a href="/home/runner/work/khepri/khepri/doc/khepri_projection.html#type-projection_fun">khepri_projection:projection_fun()</a></code></li><li><code>Projection = <a href="/home/runner/work/khepri/khepri/doc/khepri_projection.html#type-projection">khepri_projection:projection()</a></code></li></ul></p>
-<p></p>
+<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
+    </button>
+    <label class="search-label">
+      <p class="sr-only">Search</p>
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+
+      <a href="overview.html">
+        <img src="assets/logo.svg" alt="khepri" class="sidebar-projectImage">
+      </a>
+
+    <div class="sidebar-projectDetails">
+      <a href="overview.html" class="sidebar-projectName" translate="no">
+khepri
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v0.6.0
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+    </ul>
+  </div>
+
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <output role="status" id="toast"></output>
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+<h1>
+<button class="icon-action display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+  <span translate="no">khepri_projection</span> 
+  <small class="app-vsn" translate="no">(khepri v0.6.0)</small>
+
+</h1>
+
+
+  <section id="moduledoc">
+<p>Khepri projections</p><p>Projections build a replicated ETS table using tree nodes from the store which match a <a href="khepri_path.html#t:pattern/0"><code>khepri_path:pattern()</code></a>. When a tree node matching a projection's pattern is changed in the store, the tree node is passed through the projection's <a href="#t:projection_fun/0"><code>projection_fun()</code></a> to create record(s). These records are then stored in the projection's ETS table for all members in a Khepri cluster.</p><p>Projections provide a way to query the store as fast as possible and are appropriate for lookups which require low latency and/or high throughput. Projection tables contain all records matching the pattern, though, so the memory footprint of a projection table grows with the number of tree nodes in the store matching the pattern.</p><p>Projection ETS tables are owned by the Khepri cluster and are deleted when the cluster stops.</p>Updates to projection tables are immediately consistent for the member of the cluster on which the change to the store is made and the leader member but are eventually consistent for all other followers.
+  </section>
+
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+      Summary
+    </h1>
+<div class="summary-types summary">
+  <h2>
+    <a href="#types">Types</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:options/0" translate="no">options/0</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Options which control the created ETS table.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:projection/0" translate="no">projection/0</a>
+
+      </div>
+
+        <div class="summary-synopsis">A projection resource.</div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:projection_fun/0" translate="no">projection_fun/0</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>A function that formats an entry in the tree into a record to be stored in a projection.</p></div>
+
+    </div>
+
 </div>
-<p><b>See also:</b> <a href="khepri.html#register_projection-4">khepri:register_projection/4</a>, <a href="khepri_projection.html#new-3">khepri_projection:new/3</a>.</p>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
 
-<h3 class="function"><a name="new-3">new/3</a></h3>
-<div class="spec">
-<p><code>new(Name, ProjectionFun, Options) -&gt; Projection</code>
-<ul class="definitions"><li><code>Name = atom()</code></li><li><code>ProjectionFun = <a href="/home/runner/work/khepri/khepri/doc/khepri_projection.html#type-projection_fun">khepri_projection:projection_fun()</a></code></li><li><code>Options = <a href="/home/runner/work/khepri/khepri/doc/khepri_projection.html#type-options">khepri_projection:options()</a></code></li><li><code>Projection = <a href="/home/runner/work/khepri/khepri/doc/khepri_projection.html#type-projection">khepri_projection:projection()</a></code></li></ul></p>
-<p><code>Name</code>: the name of the projection. This corresponds to the name of
-         the ETS table which is created when the projection is registered.<br>
-<code>ProjectionFun</code>: the function which turns paths and data into records
-         to be stored in the projection table.<br>
-<code>Options</code>: options which control properties of the projection table.
- <br>
-</p>
-<p>returns: a <a docgen-rel="seetype" docgen-href="#projection/0" href="#type-projection"><code>projection()</code></a> resource.</p>
-</div><p><p>Creates a new projection data structure.</p>
- 
-  This function throws an error in the shape of <code>{unexpected_option, Key,
-  Value}</code> when an unknown or invalid <a docgen-rel="seetype" docgen-href="#option/0" href="#type-option"><code>option()</code></a> is passed. For example,
-  if the passed <code>ProjectionFun</code> is a <a docgen-rel="seetype" docgen-href="#simple_projection_fun/0" href="#type-simple_projection_fun"><code>simple_projection_fun()</code></a> and the
-  <code>Options</code> map sets the <code>type</code> to <code>bag</code>, this function throws
-  <code>{unexpected_option, type, bag}</code> since <code>bag</code> is not valid for simple
-  projection funs.
- </p>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#init/1" translate="no">init(Projection)</a>
 
-<h3 class="function"><a name="name-1">name/1</a></h3>
-<div class="spec">
-<p><code>name(Projection) -&gt; Name</code>
-<ul class="definitions"><li><code>Projection = <a href="#type-projection">projection()</a></code></li><li><code>Name = atom()</code></li></ul></p>
-<p></p>
-</div><p>Returns the name of the given <code>Projection</code>.</p>
-<hr>
+      </div>
 
-<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
-<p><i>Generated by EDoc</i></p>
-</body>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#name/1" translate="no">name(Projection)</a>
+
+      </div>
+
+        <div class="summary-synopsis">Returns the name of the given <code>Projection</code>.</div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#new/2" translate="no">new(Name, ProjectionFun)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p><em>See also: </em><a href="khepri.html#register_projection/4">khepri:register_projection/4</a>, <a href="khepri_projection.html#new/3">khepri_projection:new/3</a>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#new/3" translate="no">new(Name, ProjectionFun, Options)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a new projection data structure.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#trigger/4" translate="no">trigger(Projection, Path, OldProps, NewProps)</a>
+
+      </div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Types
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:options/0">
+
+  <div class="detail-header">
+    <a href="#t:options/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">options/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> options() ::
+    #{type => <a href="https://www.erlang.org/doc/man/ets.html#type-table_type">ets:table_type</a>(),
+      keypos => pos_integer(),
+      read_concurrency => boolean(),
+      write_concurrency => boolean() | auto,
+      compressed => boolean()}.</pre>
+
+      </div>
+
+<p>Options which control the created ETS table.</p><p>These options are a subset of the options available to <a href="https://www.erlang.org/doc/man/ets.html#new-2"><code>ets:new/2</code></a>. Refer to the <a href="https://www.erlang.org/doc/man/ets.html#new-2"><code>ets:new/2</code></a> documentation for a reference on each type and available values.</p>When a projection is created from a <a href="#t:simple_projection_fun/0"><code>simple_projection_fun()</code></a>, the <code>type</code> option may only be <code>set</code> or <code>ordered_set</code>: <code>bag</code> types are not allowed. <a href="#t:extended_projection_fun/0"><code>extended_projection_fun()</code></a>s may use any valid <a href="https://www.erlang.org/doc/man/ets.html#type-table_type"><code>ets:table_type()</code></a>.
+  </section>
+</section>
+<section class="detail" id="t:projection/0">
+
+  <div class="detail-header">
+    <a href="#t:projection/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">projection/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> projection() :: #khepri_projection{}.</pre>
+
+      </div>
+
+A projection resource.
+  </section>
+</section>
+<section class="detail" id="t:projection_fun/0">
+
+  <div class="detail-header">
+    <a href="#t:projection_fun/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">projection_fun/0</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-type</span> projection_fun() :: <a href="#t:simple_projection_fun/0">simple_projection_fun</a>() | <a href="#t:extended_projection_fun/0">extended_projection_fun</a>().</pre>
+
+      </div>
+
+<p>A function that formats an entry in the tree into a record to be stored in a projection.</p><p>Projection functions may either be &quot;simple&quot; or &quot;extended.&quot; See <a href="#t:simple_projection_fun/0"><code>simple_projection_fun()</code></a> and <a href="#t:extended_projection_fun/0"><code>extended_projection_fun()</code></a> for more information.</p>The projection function is executed directly by the Ra server process. The function should be as simple and fast as possible to avoid slowing down the server.
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Functions
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="init/1">
+
+  <div class="detail-header">
+    <a href="#init/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">init(Projection)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-spec</span> init(Projection) -> Ret when Projection :: <a href="#t:projection/0">projection</a>(), Ret :: ok | {error, exists}.</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="name/1">
+
+  <div class="detail-header">
+    <a href="#name/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">name(Projection)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-spec</span> name(Projection) -> Name when Projection :: <a href="#t:projection/0">projection</a>(), Name :: atom().</pre>
+
+      </div>
+
+Returns the name of the given <code>Projection</code>.
+  </section>
+</section>
+<section class="detail" id="new/2">
+
+  <div class="detail-header">
+    <a href="#new/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">new(Name, ProjectionFun)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-spec</span> new(Name, ProjectionFun) -> Projection
+       when
+           Name :: atom(),
+           ProjectionFun :: <a href="khepri_projection.html#t:projection_fun/0">khepri_projection:projection_fun</a>(),
+           Projection :: <a href="khepri_projection.html#t:projection/0">khepri_projection:projection</a>().</pre>
+
+      </div>
+
+<p><em>See also: </em><a href="khepri.html#register_projection/4">khepri:register_projection/4</a>, <a href="khepri_projection.html#new/3">khepri_projection:new/3</a>.</p>
+  </section>
+</section>
+<section class="detail" id="new/3">
+
+  <div class="detail-header">
+    <a href="#new/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">new(Name, ProjectionFun, Options)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-spec</span> new(Name, ProjectionFun, Options) -> Projection
+       when
+           Name :: atom(),
+           ProjectionFun :: <a href="khepri_projection.html#t:projection_fun/0">khepri_projection:projection_fun</a>(),
+           Options :: <a href="khepri_projection.html#t:options/0">khepri_projection:options</a>(),
+           Projection :: <a href="khepri_projection.html#t:projection/0">khepri_projection:projection</a>().</pre>
+
+      </div>
+
+<p>Creates a new projection data structure.</p>This function throws an error in the shape of <code>{unexpected_option, Key, Value}</code> when an unknown or invalid option is passed (see <a href="#t:options/0"><code>options()</code></a>). For example, if the passed <code>ProjectionFun</code> is a <a href="#t:simple_projection_fun/0"><code>simple_projection_fun()</code></a> and the <code>Options</code> map sets the <code>type</code> to <code>bag</code>, this function throws <code>{unexpected_option, type, bag}</code> since <code>bag</code> is not valid for simple projection funs.
+  </section>
+</section>
+<section class="detail" id="trigger/4">
+
+  <div class="detail-header">
+    <a href="#trigger/4" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">trigger(Projection, Path, OldProps, NewProps)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">-spec</span> trigger(Projection, Path, OldProps, NewProps) -> Ret
+           when
+               Projection :: <a href="#t:projection/0">projection</a>(),
+               Path :: <a href="khepri_path.html#t:native_path/0">khepri_path:native_path</a>(),
+               OldProps :: <a href="khepri.html#t:node_props/0">khepri:node_props</a>(),
+               NewProps :: <a href="khepri.html#t:node_props/0">khepri:node_props</a>(),
+               Ret :: ok.</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+      <footer class="footer">
+        <p>
+
+            <span class="line">
+              <a href="https://hex.pm/packages/khepri/0.6.0" class="footer-hex-package">Hex Package</a>
+
+              <a href="https://preview.hex.pm/preview/khepri/0.6.0">Hex Preview</a>
+
+                (<a href="https://preview.hex.pm/preview/khepri/0.6.0/show/src/khepri_projection.erl">current file</a>)
+
+            </span>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+              Search HexDocs
+            </button>
+
+              <a href="khepri.epub" title="ePub version">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.29.1) for the
+
+            <a href="https://erlang.org" title="Erlang" target="_blank" translate="no">Erlang programming language</a>
+
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
 </html>
